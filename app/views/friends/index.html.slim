@@ -1,0 +1,6 @@
+- if current_user.fully_integrated?
+  = render partial: 'friend', collection: @friends
+- else
+  h1 Oops!
+  p It looks like you don't have the proper authenticated accounts connected. 
+  p= link_to "Connect Accounts", authentications_path, class: 'ui button primary'

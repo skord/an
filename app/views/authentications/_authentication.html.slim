@@ -1,0 +1,37 @@
+- if authentication.provider == "steam"
+  .ui.card
+    .content
+      .right.floated
+        i.icon.steam
+      = link_to "Steam", "http://store.steampowered.com", class: "header"
+    .image
+      = image_tag authentication.info.image
+    .content
+      h3.header=authentication.info.nickname
+      .meta
+        span.date= "Member for #{time_ago_in_words(authentication.user.steam_auth.steamid.member_since)}"
+      .description= link_to "Steam Profile", authentication.info.urls['Profile']
+    .extra.content
+      span.right.floated
+        p=link_to "Deauthorize Steam", authentication, method: :delete, data: {confirm: "Are you sure? You can always reauthorize later."}
+      i.icon.game
+      = "#{current_user.steam_auth.games.length}"
+
+- if authentication.provider == "slack"
+  .ui.card
+    .content
+      .right.floated
+        i.icon.slack
+      = link_to "Slack", "http://slack.com", class: "header"
+    .image
+      = image_tag authentication.info.image
+    .content
+      h3.header=authentication.extra.user_info.user.real_name
+      .meta
+        span.date= "Team #{authentication.info.team}"
+      .description= "Nickname: #{authentication.info.nickname}"
+    .extra.content
+      span.right.floated
+        p=link_to "Deauthorize Slack", authentication, method: :delete, data: {confirm: "Are you sure? You can always reauthorize later."}
+      i.icon.users
+      = current_user.slack_auths.where(uid: authentication.uid).first.slack_api_users.length

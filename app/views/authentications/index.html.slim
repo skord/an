@@ -1,0 +1,29 @@
+- unless current_user.fully_integrated?
+  h1 Available Integrations
+  .ui.cards
+    - unless current_user.authenticated_for?("steam")
+      .card
+        .content
+          .right.floated
+            i.icon.steam
+          = link_to "Steam", "http://store.steampowered.com", class: "header"
+          .description Steam is a platform for games and such. 
+        .ui.bottom.attached.button
+          = link_to "Connect Steam", "/auth/steam"
+    - unless current_user.authenticated_for?("slack")
+      .card
+        .content
+          .right.floated
+            i.icon.slack
+          = link_to "Slack", "http://slack.com", class: "header"
+          .description Slack is this thing you use to talk to people.
+        .ui.bottom.attached.button
+          = link_to "Connect Slack", "/auth/slack"
+- if current_user.authentications.any?
+  h1 Current Integrations
+  .ui.cards
+    - if current_user.authenticated_for?("steam")
+      p= render current_user.authentication_for("steam")
+
+    - if current_user.authenticated_for?("slack")
+      p= render current_user.authentication_for("slack")

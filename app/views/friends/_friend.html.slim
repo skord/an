@@ -1,0 +1,18 @@
+.ui.card
+  .content
+    img.right.floated.mini.ui.image src=gravatar_url(friend)
+    .header
+      = friend.name
+    .description
+      - if friend.authenticated_for?('steam')
+        .field
+          i.icon.steam
+          = friend.steam_auth.info.nickname
+      - if friend.authenticated_for?('slack')
+        - friend.slack_auths.each do |sa|
+          .field
+            i.icon.slack
+            = "#{sa.info.team}: #{sa.info.nickname}"
+          .field
+            i.icon.phone
+            = number_to_phone(sa.extra.user_info.user.profile.phone)
