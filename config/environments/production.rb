@@ -1,3 +1,5 @@
+require 'syslog/logger'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -52,10 +54,11 @@ Rails.application.configure do
   config.lograge.enabled = true
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :subdomain, :uuid ]
+  # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups.
-  config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.lograge.formatter = Lograge::Formatters::Logstash.new
+  config.logger = Syslog::Logger.new('awkwardnarwhal')
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
