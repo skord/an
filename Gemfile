@@ -44,6 +44,7 @@ gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 gem 'friendly_id', '~> 5.1.0'
 gem 'slack-ruby-client'
 gem 'lograge'
+gem 'syslog_logger'
 
 group :development, :test do
   gem 'rspec-rails'
